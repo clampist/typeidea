@@ -1,0 +1,2 @@
+# typeidea
+django standard project
