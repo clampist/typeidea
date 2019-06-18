@@ -1,4 +1,4 @@
-from . import *  # NOQA
+from .base import *  # NOQA
 
 DEBUG = True
 
