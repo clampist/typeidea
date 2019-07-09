@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# import mistune
+import mistune
 
 from django.contrib.auth.models import User
-from django.core.cache import cache
+from django.utils.functional import cached_property
 from django.db import models
 
 
@@ -96,12 +96,9 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-    # def save(self, *args, **kwargs):
-    #     if self.is_md:
-    #         self.content_html = mistune.markdown(self.content)
-    #     else:
-    #         self.content_html = self.content
-    #     super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self.content_html = mistune.markdown(self.content)
+        super().save(*args, **kwargs)
 
     @staticmethod
     def get_by_tag(tag_id):
@@ -134,3 +131,7 @@ class Post(models.Model):
     @classmethod
     def hot_posts(cls):
         return cls.objects.filter(status=cls.STATUS_NORMAL).only('title', 'id').order_by('-pv')
+
+    @cached_property
+    def tags(self):
+        return ','.join(self.tag.values_list('name', flat=True))

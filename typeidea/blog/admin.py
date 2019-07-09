@@ -96,6 +96,10 @@ class PostAdmin(admin.ModelAdmin):
         )
     operator.short_description = '操作'
 
+    def save_model(self, request, obj, form, change):
+        obj.owner = request.user
+        super().save_model(request, obj, form, change)
+
     # class Media:
     #     css = {
     #         'all': ("https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css", ),

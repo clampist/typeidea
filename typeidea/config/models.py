@@ -67,8 +67,8 @@ class SideBar(models.Model):
     def get_all(cls):
         return cls.objects.filter(status=cls.STATUS_SHOW)
 
-    # def _render_latest(self):
-    #     pass
+    def _render_latest(self):
+        pass
 
     def content_html(self):
         """ 通过直接渲染模板 """
