@@ -1,11 +1,10 @@
-from django.contrib import admin
+import xadmin
 
 from .models import Link, SideBar
-from typeidea.custom_site import custom_site
 from typeidea.base_admin import BaseOwnerAdmin
 
 
-@admin.register(Link, site=custom_site)
+@xadmin.sites.register(Link)
 class LinkAdmin(BaseOwnerAdmin):
     list_display = ('title', 'href', 'status', 'weight', 'created_time')
     fields = ('title', 'href', 'status', 'weight')
@@ -15,7 +14,7 @@ class LinkAdmin(BaseOwnerAdmin):
         return super(LinkAdmin, self).save_model(request, obj, form, change)
 
 
-@admin.register(SideBar, site=custom_site)
+@xadmin.sites.register(SideBar)
 class SideBarAdmin(BaseOwnerAdmin):
     list_display = ('title', 'display_type', 'content', 'created_time')
     fields = ('title', 'display_type', 'content')
