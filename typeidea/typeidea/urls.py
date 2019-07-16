@@ -13,26 +13,31 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import xadmin
+
 from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib.sitemaps import views as sitemap_views
+from rest_framework.routers import DefaultRouter
+from rest_framework.documentation import include_docs_urls
 
-
+from blog.apis import PostViewSet, CategoryViewSet, TagViewSet
+from blog.rss import LatestPostFeed
+from blog.sitemap import PostSitemap
 from blog.views import (
     IndexView, CategoryView, TagView,
     PostDetailView, SearchView, AuthorView
 )
-from config.views import LinkListView
 from comment.views import CommentView
-from blog.rss import LatestPostFeed
-from blog.sitemap import PostSitemap
-
-import xadmin
-# xadmin.autodiscover()
+from config.views import LinkListView
 
 from .autocomplete import CategoryAutocomplete, TagAutocomplete
 
+router = DefaultRouter()
+router.register(r'post', PostViewSet, base_name='api-post')
+router.register(r'category', CategoryViewSet, base_name='api-category')
+router.register(r'tag', TagViewSet, base_name='api-tag')
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
@@ -49,4 +54,6 @@ urlpatterns = [
     url(r'^category-autocomplete/$', CategoryAutocomplete.as_view(), name='category-autocomplete'),
     url(r'^tag-autocomplete/$', TagAutocomplete.as_view(), name='tag-autocomplete'),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^api/', include(router.urls), name='api'),
+    url(r'^api/docs/', include_docs_urls(title='typeidea apis')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -14,6 +14,8 @@ xadmin = {editable = true,git = "git://github.com/sshwsfc/xadmin.git",ref = "dja
 django-autocomplete-light = "==3.2.10"
 django-ckeditor = "==5.4.0"
 pillow = "==5.1.0"
+djangorestframework = "==3.8.2"
+coreapi = "==2.3.3"
 
 [requires]
 python_version = "3.6"
