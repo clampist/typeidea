@@ -57,3 +57,10 @@ urlpatterns = [
     url(r'^api/', include(router.urls), name='api'),
     url(r'^api/docs/', include_docs_urls(title='typeidea apis')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
+    # urlpatterns += [url(r'^silk/', include('silk.urls'), name='silk')]

@@ -6,6 +6,12 @@ verify_ssl = true
 [dev-packages]
 ipython = "*"
 v = {editable = true,version = "*"}
+ipdb = "*"
+djdt-flamegraph = "==0.2.12"
+django-debug-toolbar = "==2.0"
+pympler = "==0.5"
+django-debug-toolbar-line-profiler = "==0.6.1"
+django-silk = "==3.0.2"
 
 [packages]
 mistune = "*"
