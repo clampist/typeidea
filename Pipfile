@@ -22,6 +22,10 @@ django-ckeditor = "==5.4.0"
 pillow = "==5.1.0"
 djangorestframework = "==3.9.1"
 coreapi = "==2.3.3"
+mysqlclient = "*"
+django-redis = "==4.9.0"
+hiredis = "==0.2.0"
+redis = "==2.10.6"
 
 [requires]
 python_version = "3.6"

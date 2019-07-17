@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib.sitemaps import views as sitemap_views
+from django.views.decorators.cache import cache_page
 from rest_framework.routers import DefaultRouter
 from rest_framework.documentation import include_docs_urls
 
@@ -49,7 +50,8 @@ urlpatterns = [
     url(r'^links/$', LinkListView.as_view(), name='links'),
     url(r'^comment/$', CommentView.as_view(), name='comment'),
     url(r'^rss|feed/', LatestPostFeed(), name='rss'),
-    url(r'^sitemap\.xml$', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}}),
+    url(r'^sitemap\.xml$', cache_page(60 * 20, key_prefix='sitemap_cache_')
+    (sitemap_views.sitemap), {'sitemaps': {'posts': PostSitemap}}),
     url(r'^admin/', xadmin.site.urls, name='xadmin'),
     url(r'^category-autocomplete/$', CategoryAutocomplete.as_view(), name='category-autocomplete'),
     url(r'^tag-autocomplete/$', TagAutocomplete.as_view(), name='tag-autocomplete'),
