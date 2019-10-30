@@ -19,7 +19,7 @@ django = "*"
 xadmin = {editable = true,git = "git://github.com/sshwsfc/xadmin.git",ref = "django2"}
 django-autocomplete-light = "==3.2.10"
 django-ckeditor = "==5.4.0"
-pillow = "==5.1.0"
+pillow = "==6.2.0"
 djangorestframework = "==3.9.1"
 coreapi = "==2.3.3"
 mysqlclient = "*"
